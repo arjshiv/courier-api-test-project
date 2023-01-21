@@ -31,6 +31,15 @@ const getCourierOptions = message => ({
     })
 })
 
+/**
+ * Send a message to an email and phone number using the courier api.
+ *
+ * @async
+ * @function sendCourierNotification
+ * @param {object} options - The options for the message.
+ * @param {string} options.message - The message to be sent.
+ * @returns {Promise<void>} - A promise that resolves when the request is complete.
+ */
 const sendCourierNotification = async ({ message }) => {
     await fetch('https://api.courier.com/send', getCourierOptions(message))
         .then(response => response.json())
@@ -39,6 +48,14 @@ const sendCourierNotification = async ({ message }) => {
 }
 
 
+/**
+ * Convert a message to a secret message.
+ *
+ * @function convertToSecretMessage
+ * @param {object} options - The options for the encryption.
+ * @param {string} [options.originalMessage = ''] - The original message to be encrypted.
+ * @returns {string} - The encrypted message.
+ */
 const convertToSecretMessage = ({ originalMessage = '' } = {}) => {
     const algorithm = 'aes-256-ctr'
     const secretKey = process.env.CRYPTO_SECRET_KEY
